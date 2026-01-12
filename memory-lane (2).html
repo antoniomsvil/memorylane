@@ -77,6 +77,15 @@
         .flower:nth-child(even) { background: linear-gradient(135deg, rgba(255, 212, 163, 0.2) 0%, rgba(255, 220, 190, 0.15) 100%); border-color: rgba(255, 212, 163, 0.8); }
         .flower small { font-size: 11px; color: #C85A54; font-weight: 900; margin-top: 2px; }
         .mem-img { font-size: 70px; margin: 20px 0; }
+        .memory-image { 
+            width: 100%; 
+            max-width: 400px; 
+            border-radius: 16px; 
+            box-shadow: 0 8px 20px rgba(255, 150, 180, 0.2);
+            margin: 15px auto;
+            display: block;
+            object-fit: cover;
+        }
         .counter { font-size: 12px; color: #999; margin-bottom: 10px; }
         .btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
     </style>
@@ -119,10 +128,11 @@
         <div id="s3" class="screen">
             <div class="counter" id="cnt"></div>
             <div class="mem-img" id="emj">🌹</div>
+            <img id="memoryImg" class="memory-image" src="" alt="Memory photo" style="display: none;">
             <h1 id="ttl">Memory</h1>
             <p id="dsc" style="text-align: left;">Memory description</p>
             <div class="btns">
-                <button class="back" onclick="go(2)">← Back</button>
+                <button class="back" onclick="go(2)">← Back to Menu</button>
                 <button class="next" id="nbtn" onclick="nextMem()">Next →</button>
             </div>
         </div>
@@ -130,7 +140,7 @@
 
     <script>
         const memories = [
-            { title: "Our First Date in Thailand 🌴", desc: "From the first second I saw you in that mall in Chiang Mai I knew there was something special about you. The way you speak, move and interact caught immediately my attention and we clicked right away. We ate some Kao Soi and just talked, which is one of the things I love the most about us. Walked around and had our fun, I knew it was the beginning of something important in my life, but I had no idea what was in store for me.", emoji: "🌹" },
+            { title: "Our First Date in Thailand 🌴", desc: "From the first second I saw you in that mall in Chiang Mai I knew there was something special about you. The way you speak, move and interact caught immediately my attention and we clicked right away. We ate some Kao Soi and just talked, which is one of the things I love the most about us. Walked around and had our fun, I knew it was the beginning of something important in my life, but I had no idea what was in store for me.", emoji: "🌹", image: "images/kaosoi.jpg" },
             { title: "Our Amazing Days in Thailand 🌅", desc: "After our first date together, I did not want to stop hanging out with you… oh to be in this random country with a beautiful woman, I am the luckiest. Passionate nights and long talks is what really got to know each other, and the more I knew about you, the more I wanted to still find out. It was very sad when our time in Thailand came to an end, we knew somehow it was going to finish but we were trying to avoid it in our head.. We gave ourselves a big hug, but deep inside I knew it was not the last one", emoji: "🌸" },
             { title: "Always in my thoughts 💭", desc: "Years went by and the thought of your smile and touch remained. I guess we had to continue to live life apart and learn our lessons, but I was always thinking on when I was going to see you again. We tried to reconnect but it was to soon, it was not the right time.. and that is okay, we were not ready.", emoji: "🌼" },
             { title: "The Reconnect 🔗", desc: "August 20th, 2025. I could not believe it when I saw that text, and our facetime began.. It was like we never stopped talking, remembering our days but also talking about the days apart and how we do not want to be apart for our future. I asked myself and us, are we willing to do this? And saying yes was the best decision, having you in my life again since that day has been a dream come true. It was not too long where we said I love you.. the words took longer than the feeling because it is something it was there and needed to be reignited by our reunion.", emoji: "🌻" },
@@ -164,6 +174,15 @@
             document.getElementById('ttl').textContent = m.title;
             document.getElementById('dsc').textContent = m.desc;
             document.getElementById('nbtn').disabled = (curIdx === memories.length - 1);
+            
+            // Show image if it exists (only Memory 1 has it for now)
+            const imgElement = document.getElementById('memoryImg');
+            if (m.image) {
+                imgElement.src = m.image;
+                imgElement.style.display = 'block';
+            } else {
+                imgElement.style.display = 'none';
+            }
         }
 
         function nextMem() {
