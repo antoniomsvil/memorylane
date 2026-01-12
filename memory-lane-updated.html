@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Lane</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        /* WELCOME PAGE */
+        #welcome {
+            display: block;
+        }
+
+        .emoji-pair {
+            font-size: 80px;
+            margin: 20px 0;
+            letter-spacing: 30px;
+        }
+
+        .emoji-pair.small {
+            letter-spacing: 15px;
+            margin: 15px 0;
+        }
+
+        .welcome-text {
+            font-size: 18px;
+            color: #333;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .welcome-subtext {
+            font-size: 14px;
+            color: #666;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .start-button {
+            margin-top: 30px;
+            padding: 14px 32px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 16px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* MENU PAGE */
+        #menu {
+            display: none;
+        }
+
+        .menu-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .flowers-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .flower-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            background: none;
+            font-size: 32px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border-radius: 50%;
+            background: rgba(255, 200, 200, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flower-btn:hover {
+            transform: scale(1.15);
+            background: rgba(255, 150, 150, 0.4);
+        }
+
+        /* MEMORY PAGES */
+        .memory-page {
+            display: none;
+        }
+
+        .memory-page h2 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .memory-image {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            margin: 12px auto 16px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .memory-page p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+            margin: 16px 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .back-button, .next-button {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 16px;
+            border-radius: 999px;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .back-button {
+            background: rgba(100, 100, 100, 0.15);
+            color: #333;
+        }
+
+        .back-button:hover {
+            background: rgba(100, 100, 100, 0.3);
+            transform: translateX(-2px);
+        }
+
+        .next-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- WELCOME PAGE -->
+        <div id="welcome">
+            <div class="emoji-pair">👨‍💑👩‍💑</div>
+            <div class="welcome-text">
+                Please Join me on a walk through our Memory Lane 🌲
+            </div>
+            <div class="emoji-pair small">🐶</div>
+            <div class="welcome-subtext">
+                Through our enchanted Memory Lane, where each fairy flower holds a precious moment. 
+                From our first enchanted meeting to now, every memory glows with our magic. 
+                Let's walk this path together, guided by fairies and love. 🧚✨
+            </div>
+            <button class="start-button" onclick="showMenu()">Let's Go! 💫</button>
+        </div>
+
+        <!-- MENU PAGE -->
+        <div id="menu">
+            <div class="menu-title">Follow the fairy lights down our magical path...</div>
+            <div class="flowers-grid">
+                <button class="flower-btn" onclick="showMemory(1)">🌸</button>
+                <button class="flower-btn" onclick="showMemory(2)">🌹</button>
+                <button class="flower-btn" onclick="showMemory(3)">🌺</button>
+                <button class="flower-btn" onclick="showMemory(4)">🌻</button>
+                <button class="flower-btn" onclick="showMemory(5)">🌷</button>
+                <button class="flower-btn" onclick="showMemory(6)">🌼</button>
+                <button class="flower-btn" onclick="showMemory(7)">💐</button>
+                <button class="flower-btn" onclick="showMemory(8)">🌾</button>
+                <button class="flower-btn" onclick="showMemory(9)">🪻</button>
+                <button class="flower-btn" onclick="showMemory(10)">🌸</button>
+            </div>
+        </div>
+
+        <!-- MEMORY 1: Our First Date in Thailand -->
+        <div class="memory-page" id="memory1">
+            <h2>🌸 Our First Date in Thailand</h2>
+            <img src="images/kaosoi.jpg" alt="Kao Soi in Chiang Mai" class="memory-image">
+            <p>
+                Our enchanted first meeting in the land of smiles. Every moment felt magical, 
+                like the universe brought us together. From the bustling streets to quiet moments, 
+                this was where it all began. Our story started here, and I'll cherish it forever.
+            </p>
+            <div class="button-group">
+                <button class="back-button" onclick="showMenu()">⬅ Back</button>
+                <button class="next-button" onclick="showMemory(2)">Next ➡</button>
+            </div>
+        </div>
+
+        <!-- MEMORY 2: Amazing Evenings of Passion in Thailand -->
+        <div class="memory-page" id="memory2">
+            <h2>🌹 Amazing Evenings of Passion in Thailand</h2>
+            <p>
+                Nights filled with laughter, passion, and endless conversations. 
+                We discovered each other under the Thai moonlight. These evenings were 
+                pure magic—where two souls connected deeply. Every moment was unforgettable.
+            </p>
+            <div class="button-group">
+                <button class="back-button" onclick="showMenu()">⬅ Back</button>
+                <button class="next-button" onclick="showMemory(3)">Next ➡</button>
+            </div>
+        </div>
+
+        <!-- MEMORY 3: Always in My Thoughts -->
+        <div class="memory-page" id="memory3">
+            <h2>🌺 Always in My Thoughts</h2>
+            <p>
+                Distance couldn't separate us. Even when miles apart, you were always on my mind. 
+                Every day brought thoughts of you—your smile, your laugh, your warmth. 
+                You became my constant, my greatest inspiration, and my reason to keep going.
+            </p>
+            <div class="button-group">
+                <button class="back-button" onclick="showMenu()">⬅ Back</button>
+                <button class="next-button" onclick="showMemory(4)">Next ➡</button>
+            </div>
+        </div>
+
+        <!-- MEMORY 4: The Reconnect -->
+        <div class="memory-page" id="memory4">
+            <h2>🌻 The Reconnect</h2>
+            <p>
+                When we finally reunited, it felt like coming home. All the longing, all the waiting—
+                it melted away the moment I saw you again. We were stronger, more connected, more in love. 
+                This moment reminded me that what we have is worth every obstacle.
+            </p>
+            <div class="button-group">
+                <button class="back-button" onclick="showMenu()">⬅ Back</button>
+                <button class="next-button" onclick="showMemory(5)">Next ➡</button>
+            </div>
+        </div>
+
+        <!-- MEMORY 5: California Dreaming -->
+        <div class="memory-page" id="memory5">
+            <h2>🌷 California Dreaming</h2>
+            <p>
+                Golden sunsets and endless horizons. California showed us dreams come true. 
+                The freedom of that adventure, hand in hand, under the California sun. 
+                We weren't just traveling; we were building memories that would last a lifetime.
+            </p>
+            <div class="button-group">
+                <button class="back-button" onclick="showMenu()">⬅ Back</button>
+                <button class="next-button" onclick="showMemory(6)">Next ➡</button>
+            </div>
+        </div>
+
+        <!-- MEMORY 6: My Happiest Day at Pinnacles -->
+        <div class="memory-page" id="memory6">
+            <h2>🌼 My Happiest Day at Pinnacles</h2>
+            <p>
+                Standing among those majestic rock formations with you—I've never felt more alive. 
+                The view was breathtaking, but your presence was everything. That day, with you by my side, 
+                felt like the peak of my happiness. It's where I realized you make every moment perfect.
+            </p>
+            <div class="button-group">
+                <button class="back-button" onclick="showMenu()">⬅ Back</button>
+                <button class="next-button" onclick="showMemory(7)">Next ➡</button>
+            </div>
+        </div>
+
+        <!-- MEMORY 7: Family Love -->
+        <div class="memory-page" id="memory7">
+            <h2>💐 Family Love</h2>
+            <p>
+                Moments with family became moments with you. You fit into my world so naturally, 
+                bringing joy and warmth to everyone around you. These are the times that matter most—
+                surrounded by love, with you at my side.
+            </p>
+            <div class="button-group">
+                <button class="back-button" onclick="showMenu()">⬅ Back</button>
+                <button class="next-button" onclick="showMemory(8)">Next ➡</button>
+            </div>
+        </div>
+
+        <!-- MEMORY 8: US -->
+        <div class="memory-page" id="memory8">
+            <h2>🌾 US</h2>
+            <p>
+                We built something real, something beautiful, something that grows stronger every day. 
+                Through challenges and celebrations, we've learned what truly matters. 
+                "US" is my favorite word because it means you, me, and our infinite possibilities together.
+            </p>
+            <div class="button-group">
+                <button class="back-button" onclick="showMenu()">⬅ Back</button>
+                <button class="next-button" onclick="showMemory(9)">Next ➡</button>
+            </div>
+        </div>
+
+        <!-- MEMORY 9: Never Apart -->
+        <div class="memory-page" id="memory9">
+            <h2>🪻 Never Apart</h2>
+            <p>
+                Even when the world pulls us in different directions, our hearts remain intertwined. 
+                You are my anchor, my home, my forever person. Distance is just a number; 
+                our love transcends it all. We were meant to find each other.
+            </p>
+            <div class="button-group">
+                <button class="back-button" onclick="showMenu()">⬅ Back</button>
+                <button class="next-button" onclick="showMemory(10)">Next ➡</button>
+            </div>
+        </div>
+
+        <!-- MEMORY 10: Our Life -->
+        <div class="memory-page" id="memory10">
+            <h2>🌸 Our Life</h2>
+            <p>
+                This is just the beginning. Every day with you is a memory in the making. 
+                I can't wait to fill our life with more laughter, more adventures, more love. 
+                You are my greatest blessing, and our story is my favorite. Here's to forever with you. 💕
+            </p>
+            <div class="button-group">
+                <button class="back-button" onclick="showMenu()">⬅ Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showMenu() {
+            document.getElementById("welcome").style.display = "none";
+            const pages = document.querySelectorAll(".memory-page");
+            pages.forEach(p => p.style.display = "none");
+            document.getElementById("menu").style.display = "block";
+        }
+
+        function showMemory(num) {
+            document.getElementById("welcome").style.display = "none";
+            document.getElementById("menu").style.display = "none";
+            const pages = document.querySelectorAll(".memory-page");
+            pages.forEach(p => p.style.display = "none");
+            document.getElementById("memory" + num).style.display = "block";
+        }
+    </script>
+</body>
+</html>
